@@ -5,7 +5,18 @@ header("Content-Type: application/json");
 require_once __DIR__ . "/../config/database.php";
 
 try{
-    $sql = "SELECT * FROM umamusume";
+    $sql = "SELECT
+            umamusume.umamusume_id,
+            umamusume.name,
+            umamusume.birth_date,
+            account.email,
+            trainer.trainer_id,
+            trainer.trainee_name
+        FROM umamusume
+        INNER JOIN account
+            ON umamusume.account_id = account.account_id
+        INNER JOIN trainer
+            ON umamusume.trainer_id = trainer.trainer_id";
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute();

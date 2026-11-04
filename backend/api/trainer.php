@@ -6,7 +6,14 @@ require_once __DIR__ . "/../config/database.php";
 
 try{
 
-  $sql = "SELECT * FROM trainer";
+  $sql = "SELECT
+            trainer.trainer_id,
+            trainer.trainee_name,
+            account.email,
+            account.role
+        FROM trainer
+        INNER JOIN account
+        ON trainer.account_id = account.account_id";
 
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
